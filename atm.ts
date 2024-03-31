@@ -1,12 +1,13 @@
-#! /usr/bin/env  node
+#! /usr/bin/env node
 import inquirer from "inquirer";
+import chalk from "chalk";
 
 let mybalance=25000;//Dollar
 let mypinNum=  42345;
 //get pinNum from user
  let myAns =  await inquirer.prompt([
   {
-  name: "pinNum",
+ name: "pinNum",
   message: "Enter Your PinNumber",
   type: "number"
 }
@@ -14,13 +15,13 @@ let mypinNum=  42345;
 );
 //using condition for next step
 if ( myAns.pinNum===mypinNum){
-  console.log("valid pin number");
+  console.log(chalk.bgGreenBright.bold ("valid pin number"));
   let Operations=  await inquirer.prompt([
     {
     name: "Operation",
     message: "select any  one",
     type: "list",
-    choices: ["withdraw","checkBalance","fastCash"]
+    choices: ["withdraw","checkBalance","fastCash","Exit"]
   }
 ]);
 //if user Select Withdraw
@@ -69,9 +70,13 @@ if (cashCount.Cash<=mybalance){
   console.log(`Your Transaction  ${cashCount.Cash}  Successsful!! \n your remaining Balance is: ${mybalance}`)
 }
 
-}
 
 }
+else if(Operations.Operation=== "Exit"){
+console.log(chalk.bgBlue.italic("you're exit !"))
+}
+}
+
 //if user select invalid pinNumber
 else{
   console.log("invalid pin number please enter correct pin number:")
